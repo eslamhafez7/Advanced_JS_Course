@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="node_modules/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <script>
+    axios.post('https://reqres.in/api/login', {
+        "email": "eve.holt@reqres.in",
+        "password": "cityslicka"
+    })
+        .then(function (response) {
+        let token = response.data.token;
+        localStorage.setItem("token", token);
+        console.log(`Token Recived: ${token}`);
+        createUser()
+    })
+
+    const createUser = () => {
+        let token = localStorage.getItem("token");
+        let config = {
+            headers: {
+                "Authentication": `Bearer ${token}`,
+            }
+        }
+        axios.post('https://reqres.in/api/uesrs', {
+            "name": "Eslam", 
+            "job": "Developer"
+        }, config)
+        .then(function (response) {
+            console.log(response)
+        })
+    }
+
+    </script>
+</body>
+</html>

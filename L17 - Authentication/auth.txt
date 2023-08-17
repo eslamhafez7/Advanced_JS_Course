@@ -1,0 +1,43 @@
+[Authentication]
+    => Authentication in JavaScript often involves interactions with a server to verify user
+    identity and grant access to certain resources. One common approach is using tokens, such
+    as JSON Web Tokens (JWTs), in combination with server-side logic to authenticate and authorize
+    users. Here's a high-level overview of the process: {
+        1- User Registration and Login
+        2- Token Generations
+        3- Sending the Token With Request
+        4- Token Validation
+        5- Authorization
+    }
+
+    => Authorization Header: {
+        The Authorization header is used to send the authentication token (JWT) to the server.
+        It's formatted as "Bearer <token>", where <token> is the actual JWT. This header informs
+        the server that the request is authenticated.
+    }
+
+    => Request Body Parameters: {
+        = The information you include in the request body can vary depending on the specific use case.
+        Here are a few scenarios where you might need to include data in the request body: {
+            1- Login:{
+                When logging in, you typically send the user's credentials (e.g., username and password)
+                in the request body. The server validates these credentials and responds with a JWT if
+                they are correct.
+            }
+            2- Register {
+                During user registration, you might send information like username, email,
+                and password in the request body. The server creates a new user account and
+                responds with a JWT.(JSON Web Token)
+            }
+            3- Updating User Profile: {
+                If you need to update user profile information, you might include the updated
+                details in the request body. The server can then process the changes based on
+                the authenticated user.
+            }
+            4- Access Controll and Premissions: {
+                For certain actions that require premissions, you migt need to provide additional
+                information in the body parameter to indicate the intended action and any assosiated 
+                data.
+            }
+        }
+    }

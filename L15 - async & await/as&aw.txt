@@ -1,0 +1,19 @@
+1- {
+    => An async function is a function that returns a promise. It can contain one or more await
+    expressions, which pause the execution of the function until the awaited promise resolves.
+    Here's the syntax: {
+
+        async function functionName() {
+            // Asynchronous code using await
+            const result = await someAsyncFunction();
+            return result;
+        }
+        
+    }
+} 
+
+2- {
+    => The await keyword can only be used inside an async function. It's used to pause the execution
+    of the function until the promise is resolved. It then returns the resolved value of the promise.
+    If the promise is rejected, it will throw an error that you can catch using try...catch.
+}

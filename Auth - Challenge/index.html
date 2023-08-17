@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication Challenge</title>
+    <script src="../L17 - Authentication/node_modules/axios/dist/axios.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&family=Rubik:ital,wght@0,300;0,400;0,500;1,400;1,600;1,800&display=swap');
+        * {
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        form {
+            min-width: 500px;
+            min-height: 300px;
+            background-color: #063274;
+            color: #fff;
+            padding: 20px;
+            position: relative;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .fields {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            margin: 15px 0;
+            padding: 10px 20px;
+            width: 350px;
+            outline: none;
+            border: 1px solid transparent;
+            background-color: #021127;
+            color: #fff;
+            border-radius: 20px;
+        }
+        input::placeholder {
+            color: #fff;
+        }
+        input[name="email"]:focus::placeholder,
+        input[name="password"]:focus::placeholder {
+            opacity: 0;
+            transition: 0.3s;
+        }
+        input[name="submit"] {
+            width: 140px;
+            background-color: #b2344a;
+            cursor: pointer;
+        }
+        input[name="checkbox"] {
+            position: absolute;
+            right: 30px;
+            width: fit-content;
+            bottom: 7.3rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form>
+            <h1>Login</h1>
+            <div class="fields">
+                <input type="email" id="email-value" name="email" placeholder="Email"/>
+                <input type="password" id="password-value" name="password" placeholder="Password"/>
+                <input type="checkbox" id="chek" name="checkbox" />
+                <input type="submit" id="button" name="submit" />
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let btn = document.querySelector("#button");
+
+    btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        let email = document.getElementById("email-value").value;
+        let password = document.getElementById("password-value").value;
+        axios.post("https://reqres.in/api/login", {
+        "email": email,
+            "password": password
+        })
+        .then(response => {
+            let token = response.data.token;
+            localStorage.setItem("token", token);
+            console.log(`Token Is : ${token}`);
+            window.location.href = "./successfull.html";
+            // document.forms[0].innerHTML = 'Successfuly Logged In';
+            // document.forms[0].style.lineHeight = "300px";
+            email.value = '';
+            password.value = '';
+        })
+        .catch((error) => {
+            console.log(error);
+            alert(error.response.data.error);
+        });
+    });
+
+    let chk = document.querySelector("#chek");
+    let pass = document.querySelector("#password-value");
+    chk.onchange = function () {
+        pass.type = chk.checked ? "text": "password";
+    }
+    </script>
+</body>
+</html>
